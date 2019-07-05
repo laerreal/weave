@@ -41,11 +41,7 @@ Operating System :: MacOS
 """
 
 
-MAJOR               = 0
-MINOR               = 18
-MICRO               = 0
-ISRELEASED          = False
-VERSION             = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
+from weave._version import VERSION, ISRELEASED
 
 
 # Return the git revision as a string

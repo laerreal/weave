@@ -25,7 +25,10 @@ if not sys.version_info[:2] in [(2, 6), (2, 7)]:
     raise RuntimeError("Weave only supports Python 2.6 and 2.7")
 
 
-from weave.version import version as __version__
+try:
+    from weave.version import version as __version__
+except ImportError:
+    from ._version import VERSION as __version__
 
 from .blitz_tools import blitz, BlitzWarning
 from .inline_tools import inline

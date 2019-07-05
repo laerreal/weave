@@ -2,6 +2,7 @@ from __future__ import absolute_import, print_function
 
 from . import common_info
 from . import c_spec
+from six import PY2
 
 #----------------------------------------------------------------------------
 # The "standard" conversion classes
@@ -10,13 +11,17 @@ from . import c_spec
 default = [c_spec.int_converter(),
            c_spec.float_converter(),
            c_spec.complex_converter(),
-           c_spec.unicode_converter(),
            c_spec.string_converter(),
            c_spec.list_converter(),
            c_spec.dict_converter(),
-           c_spec.tuple_converter(),
-           c_spec.file_converter(),
-           c_spec.instance_converter(),]
+           c_spec.tuple_converter(),]
+
+if PY2:
+    default.extend([
+        c_spec.unicode_converter(),
+        c_spec.file_converter(),
+        c_spec.instance_converter(),
+    ])
 
 #----------------------------------------------------------------------------
 # add numpy array converters to the default

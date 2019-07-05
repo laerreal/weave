@@ -21,10 +21,6 @@ from __future__ import absolute_import, print_function
 import sys
 
 
-if not sys.version_info[:2] in [(2, 6), (2, 7)]:
-    raise RuntimeError("Weave only supports Python 2.6 and 2.7")
-
-
 try:
     from weave.version import version as __version__
 except ImportError:

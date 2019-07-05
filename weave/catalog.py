@@ -39,6 +39,8 @@ import pickle
 import socket
 import tempfile
 import warnings
+from six import PY3
+from six.moves import range
 
 try:
     # importing dbhash is necessary because this regularly fails on Python 2.x
@@ -92,6 +94,8 @@ def expr_to_filename(expr):
     base = 'sc_'
     # 32 chars is enough for unique filenames; too long names don't work for
     # MSVC (see gh-3216).  Don't use md5, gives a FIPS warning.
+    if PY3:
+        expr = expr.encode()
     return base + sha256(expr).hexdigest()[:32]
 
 
@@ -107,7 +111,7 @@ def unique_file(d,expr):
     """
     files = os.listdir(d)
     base = expr_to_filename(expr)
-    for i in xrange(1000000):
+    for i in range(1000000):
         fname = base + repr(i)
         if not (fname+'.cpp' in files or
                 fname+'.o' in files or
@@ -632,7 +636,7 @@ class catalog(object):
             from os import access, F_OK, W_OK
             return (access(x,F_OK) and access(x,W_OK) or
                     access(os.path.dirname(x),W_OK))
-        writable = filter(file_test,files)
+        writable = list(filter(file_test,files))
         if writable:
             file = writable[0]
         else:

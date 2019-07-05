@@ -7,7 +7,10 @@ from numpy import ones, ndarray, array, asarray, concatenate, zeros, shape, \
 
 import sys
 
-numericTypes = (int, long, float, complex)
+# TODO: add dependency on six
+from six import integer_types
+
+numericTypes = integer_types + (float, complex)
 
 
 def isnumeric(t):

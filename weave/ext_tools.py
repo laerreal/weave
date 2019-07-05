@@ -325,7 +325,7 @@ extern "C" {
         source_files = {}
         for i in _source_files:
             source_files[i] = None
-        source_files = source_files.keys()
+        source_files = list(source_files.keys())
 
         # add internally specified macros, includes, etc. to the key words
         # values of the same names so that distutils will use them.
